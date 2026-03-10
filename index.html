@@ -1,0 +1,122 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+  #syko-cinema-entry {
+    position: fixed; width: 100%; height: 100%; background: #000; 
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; overflow: hidden; font-family: 'Montserrat', sans-serif;
+    left: 0; top: 0; flex-direction: column;
+  }
+
+  /* ಕೇವಲ ಸಿಂಹದ ಮುಖದ ಘರ್ಜನೆ - ಬ್ಯಾಗ್ರೌಂಡ್ */
+  #lion-roar-bg {
+    position: absolute; width: 100%; height: 100%;
+    object-fit: contain; /* ಮುಖ ಪೂರ್ತಿ ಸರಿಯಾಗಿ ಕಾಣಲು */
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  .white-flash {
+    position: absolute; width: 100%; height: 100%; background: #fff;
+    opacity: 0; z-index: 100; pointer-events: none;
+  }
+
+  .content-box {
+    position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center;
+  }
+
+  .logo-container { display: flex; gap: 1vw; }
+
+  .letter {
+    font-size: clamp(45px, 12vw, 110px); 
+    font-weight: 900; color: #fff; opacity: 0; 
+    display: inline-block; text-transform: uppercase;
+  }
+
+  /* Instagram Tag */
+  .instagram-tag {
+    margin-top: 15px; display: flex; align-items: center; gap: 8px;
+    opacity: 0; transform: translateY(20px); transition: all 0.8s ease;
+    color: #fff; font-size: clamp(12px, 2.5vw, 16px); letter-spacing: 2px;
+  }
+
+  .insta-icon {
+    width: 20px; height: 20px;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  }
+
+  @keyframes flyIn {
+    0% { opacity: 0; transform: scale(0) translate(var(--x), var(--y)); filter: blur(20px); }
+    100% { opacity: 1; transform: scale(1) translate(0, 0); filter: blur(0); }
+  }
+
+  @keyframes flashEffect {
+    0%, 100% { opacity: 0; } 50% { opacity: 1; }
+  }
+
+  .final-glow {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff0055;
+  }
+</style>
+
+<div id="syko-cinema-entry">
+  <img id="lion-roar-bg" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGh6Z3R6bmR3bmxyeXN5eXN5eXN5eXN5eXN5eXN5eXN5eXN5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L17xM7HC_Lp9C/giphy.gif" alt="Lion Face Roar">
+
+  <div class="white-flash" id="flash"></div>
+  
+  <div class="content-box">
+    <div class="logo-container" id="logoBox"></div>
+    <div class="instagram-tag" id="instaTag">
+      <span>made in</span>
+      <div class="insta-icon">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <span style="font-weight: bold;">ll_syko_sagar__111_ll</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const container = document.getElementById('logoBox');
+    const flash = document.getElementById('flash');
+    const instaTag = document.getElementById('instaTag');
+    const lionBg = document.getElementById('lion-roar-bg');
+    const text = "SYKOLIVE";
+    
+    // 1. ಅಕ್ಷರಗಳು ಸಣ್ಣದಾಗಿ ದೂರದಿಂದ ಬರುವುದು
+    text.split("").forEach((char, i) => {
+      const span = document.createElement("span");
+      span.innerText = char;
+      span.className = "letter";
+      span.style.setProperty('--x', `${(Math.random() - 0.5) * 3000}px`);
+      span.style.setProperty('--y', `${(Math.random() - 0.5) * 3000}px`);
+      span.style.animation = `flyIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards`;
+      span.style.animationDelay = `${i * 0.1}s`;
+      container.appendChild(span);
+    });
+
+    // 2. ಫ್ಲಾಶ್ ಮತ್ತು ನೇಮ್ ರೆವೀಲ್
+    setTimeout(() => {
+      flash.style.animation = "flashEffect 0.5s ease-out forwards";
+      document.querySelectorAll('.letter').forEach(el => el.classList.add('final-glow'));
+      instaTag.style.opacity = "1";
+      instaTag.style.transform = "translateY(0)";
+    }, 2000);
+
+    // 3. ಸಿಂಹದ ಮುಖದ ಘರ್ಜನೆ ಮಾತ್ರ ಬರುವುದು
+    setTimeout(() => {
+      lionBg.style.opacity = "1";
+    }, 3500);
+
+    // 4. ಪರ್ಫೆಕ್ಟ್ ಎಕ್ಸಿಟ್ - ಮೇನ್ ಪೇಜ್‌ಗೆ ಹೋಗಲು
+    setTimeout(() => {
+      const entry = document.getElementById('syko-cinema-entry');
+      entry.style.transition = "1.2s ease-in-out";
+      entry.style.opacity = "0";
+      setTimeout(() => entry.remove(), 1200);
+    }, 7000);
+  })();
+</script>
